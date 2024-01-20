@@ -44,7 +44,7 @@ function load_images() {
 
         fil.src = path + "/images/field.png";
         fil2.src = path + "/images/wall2.jpeg";
-        fil3.src = path + "/images/brokenWall.jpeg";
+        fil3.src = path + "/images/brbl.png";
         bul.src = path + "/images/bulBkue.png";
         bulL.src = path + "/images/bullL.png";
         bulR.src = path + "/images/bullR.png";
@@ -88,7 +88,7 @@ function load_images() {
     })
 }
 
-function drawField(ctx, field, tx, ty, ttx, tty, bx, by, way, bbx, bby, bWay, tWay, ttWay) {
+function drawField(ctx, field, tx, ty, ttx, tty, bx, by, way, bbx, bby, bWay, tWay, ttWay, finish) {
     const cellSize = 85.3;
     for (let i = 0; i < 15; i++) {
         for (let j = 0; j < 8; j++) {
@@ -100,10 +100,12 @@ function drawField(ctx, field, tx, ty, ttx, tty, bx, by, way, bbx, bby, bWay, tW
             //else if(field[j][i] === 6){ctx.drawImage(fil4, -10 + cellSize * bby, -50 + cellSize * bbx, cellSize, cellSize)}
         }
     }
-    if (tWay === "left") { ctx.drawImage(tankImaLeft, -10 + ty * cellSize, -50 + tx * cellSize, cellSize, cellSize); }
-    else if (tWay === "down") { ctx.drawImage(tankImaDown, -10 + ty * cellSize, -50 + tx * cellSize, cellSize, cellSize); }
-    else if (tWay === "up") { ctx.drawImage(tankIma, -10 + ty * cellSize, -50 + tx * cellSize, cellSize, cellSize); }
-    else if (tWay === "right") { ctx.drawImage(tankImaRight, -10 + ty * cellSize, -50 + tx * cellSize, cellSize, cellSize); }
+    if (!finish['players2']){
+        if (tWay === "left") { ctx.drawImage(tankImaLeft, -10 + ty * cellSize, -50 + tx * cellSize, cellSize, cellSize); }
+        else if (tWay === "down") { ctx.drawImage(tankImaDown, -10 + ty * cellSize, -50 + tx * cellSize, cellSize, cellSize); }
+        else if (tWay === "up") { ctx.drawImage(tankIma, -10 + ty * cellSize, -50 + tx * cellSize, cellSize, cellSize); }
+        else if (tWay === "right") { ctx.drawImage(tankImaRight, -10 + ty * cellSize, -50 + tx * cellSize, cellSize, cellSize); }
+    }
 
     if (bx != 0 && by != 0 && tWay == way) {
         if (way === "left") { ctx.drawImage(bulL, -10 + by * cellSize, -50 + bx * cellSize, cellSize, cellSize); }
@@ -111,12 +113,12 @@ function drawField(ctx, field, tx, ty, ttx, tty, bx, by, way, bbx, bby, bWay, tW
         else if (way === "up") { ctx.drawImage(bul, -10 + by * cellSize, -50 + bx * cellSize, cellSize, cellSize); }
         else if (way === "right") { ctx.drawImage(bulR, -10 + by * cellSize, -50 + bx * cellSize, cellSize, cellSize); }
     }
-
-    if (ttWay === "left") { ctx.drawImage(tankImaRedL, -10 + tty * cellSize, -50 + ttx * cellSize, cellSize, cellSize); }
-    else if (ttWay === "down") { ctx.drawImage(tankImaRedD, -10 + tty * cellSize, -50 + ttx * cellSize, cellSize, cellSize); }
-    else if (ttWay === "up") { ctx.drawImage(tankImaRedU, -10 + tty * cellSize, -50 + ttx * cellSize, cellSize, cellSize); }
-    else if (ttWay === "right") {ctx.drawImage(tankImaRedR, -10 + tty * cellSize, -50 + ttx * cellSize, cellSize, cellSize);}
-
+    if (!finish['players1']){
+        if (ttWay === "left") { ctx.drawImage(tankImaRedL, -10 + tty * cellSize, -50 + ttx * cellSize, cellSize, cellSize); }
+        else if (ttWay === "down") { ctx.drawImage(tankImaRedD, -10 + tty * cellSize, -50 + ttx * cellSize, cellSize, cellSize); }
+        else if (ttWay === "up") { ctx.drawImage(tankImaRedU, -10 + tty * cellSize, -50 + ttx * cellSize, cellSize, cellSize); }
+        else if (ttWay === "right") {ctx.drawImage(tankImaRedR, -10 + tty * cellSize, -50 + ttx * cellSize, cellSize, cellSize);}
+    }
     if (bx != 0 && by != 0 && ttWay == bWay) {
         if (bWay === "left") { ctx.drawImage(bulRedL, -10 + bby * cellSize, -50 + bbx * cellSize, cellSize, cellSize); }
         else if (bWay === "down") { ctx.drawImage(bulRedD, -10 + bby * cellSize, -50 + bbx * cellSize, cellSize, cellSize); }
@@ -137,8 +139,7 @@ function newFrame(frame) {
     const ctx = document.getElementById("field").getContext("2d");
     drawField(ctx, frame["field"], frame['x'], frame['y'], frame['x2'], frame['y2'],
         frame["bullet"]['bx'], frame["bullet"]['by'], frame["bullet"]["way"], frame["bullet2"]['bx'],
-        frame["bullet2"]['by'], frame["bullet2"]["way"], frame['way1'], frame['way2'])
-
+        frame["bullet2"]['by'], frame["bullet2"]["way"], frame['way1'], frame['way2'], frame['finish'])
     console.log(frame)
 }
 
