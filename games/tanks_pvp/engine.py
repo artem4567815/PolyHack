@@ -89,7 +89,7 @@ def Bullet_up(player1Bullet, player2Bullet, pos_player1, pos_player2, game_map, 
             pos_player2 = []
             winners["players1"] = True
             finish = True
-            print("WINNNNNNNNN player 1")
+            winners['winText'] = "WINNNNNNNNN blue player"
     elif game_map[player1Bullet["pos"][0]][player1Bullet["pos"][1]] == 1:
         player1Bullet["pos"] = [0, 0]
         player1Bullet["way"] = ""
@@ -115,7 +115,7 @@ def Bullet_up(player1Bullet, player2Bullet, pos_player1, pos_player2, game_map, 
             pos_player1 = []
             winners["players2"] = True
             finish = True
-            print("WINNNNNNNNN player 2")
+            winners['winText'] = "WINNNNNNNNN red player  "
     elif game_map[player2Bullet["pos"][0]][player2Bullet["pos"][1]] == 1:
         player2Bullet["pos"] = [0, 0]
         player2Bullet["way"] = ""
@@ -161,7 +161,7 @@ def game():
 
     pos_player1 = [6, 1]
     player1Way = {"way": " "}
-    winners = {"players1": False, "players2": False}
+    winners = {"players1": False, "players2": False, "winText":""}
 
     while True:
         integr += 1

@@ -27,6 +27,9 @@ const bulRedL = new Image();
 const bulRedR = new Image();
 const bulRedD = new Image();
 
+function clearScreen(ctx) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
 
 function load_images() {
 
@@ -125,6 +128,11 @@ function drawField(ctx, field, tx, ty, ttx, tty, bx, by, way, bbx, bby, bWay, tW
         else if (bWay === "up") { ctx.drawImage(bulRedU, -10 + bby * cellSize, -50 + bbx * cellSize, cellSize, cellSize); }
         else if (bWay === "right") { ctx.drawImage(bulRedR, -10 + bby * cellSize, -50 + bbx * cellSize, cellSize, cellSize); }
     }
+    if (finish['players2'] || finish['players1']){
+        ctx.font = "24px serif";
+        clearScreen(ctx);
+        ctx.fillText(finish["winText"], 600, 300);
+    }
 
 }
 
@@ -140,7 +148,6 @@ function newFrame(frame) {
     drawField(ctx, frame["field"], frame['x'], frame['y'], frame['x2'], frame['y2'],
         frame["bullet"]['bx'], frame["bullet"]['by'], frame["bullet"]["way"], frame["bullet2"]['bx'],
         frame["bullet2"]['by'], frame["bullet2"]["way"], frame['way1'], frame['way2'], frame['finish'])
-    console.log(frame)
 }
 
 init()
