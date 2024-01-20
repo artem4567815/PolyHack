@@ -1,8 +1,5 @@
 from os import system
 
-# Install requirements
-system('pip install -r requirements.txt')
-
 # Init database
 system('flask db init')
 system('flask db migrate')

@@ -9,7 +9,7 @@ team_number = int(input("How many teams would you like:"))
 team_size = int(input("Enter team size:"))
 
 with app.app_context():
-    shutil.copytree('./games/template', './games/{}'.format(prepared_title))
+    shutil.copytree('games/template', './games/{}'.format(prepared_title))
 
     # replace 'GAME_TITLE' in files.
     for dirpath, dirnames, filenames in os.walk('./games/{}'.format(prepared_title)):
