@@ -91,7 +91,7 @@ function load_images() {
     })
 }
 
-function drawField(ctx, field, tx, ty, ttx, tty, bx, by, way, bbx, bby, bWay, tWay, ttWay, finish) {
+function drawField(ctx, field, player1, player2, bullet1, bullet2, winner) {
     const cellSize = 85.3;
     for (let i = 0; i < 15; i++) {
         for (let j = 0; j < 8; j++) {
@@ -103,35 +103,37 @@ function drawField(ctx, field, tx, ty, ttx, tty, bx, by, way, bbx, bby, bWay, tW
             //else if(field[j][i] === 6){ctx.drawImage(fil4, -10 + cellSize * bby, -50 + cellSize * bbx, cellSize, cellSize)}
         }
     }
-    if (!finish['players2']){
-        if (tWay === "left") { ctx.drawImage(tankImaLeft, -10 + ty * cellSize, -50 + tx * cellSize, cellSize, cellSize); }
-        else if (tWay === "down") { ctx.drawImage(tankImaDown, -10 + ty * cellSize, -50 + tx * cellSize, cellSize, cellSize); }
-        else if (tWay === "up") { ctx.drawImage(tankIma, -10 + ty * cellSize, -50 + tx * cellSize, cellSize, cellSize); }
-        else if (tWay === "right") { ctx.drawImage(tankImaRight, -10 + ty * cellSize, -50 + tx * cellSize, cellSize, cellSize); }
+    if (!winner['player2']){
+        if (player1['way'] === "left") { ctx.drawImage(tankImaLeft, -10 + player1['pos'][1] * cellSize, -50 +  player1['pos'][0] * cellSize, cellSize, cellSize); }
+        else if (player1['way'] === "down") { ctx.drawImage(tankImaDown, -10 + player1['pos'][1] * cellSize, -50 +  player1['pos'][0] * cellSize, cellSize, cellSize); }
+        else if (player1['way'] === "up") { ctx.drawImage(tankIma, -10 + player1['pos'][1] * cellSize, -50 +  player1['pos'][0] * cellSize, cellSize, cellSize); }
+        else if (player1['way'] === "right") { ctx.drawImage(tankImaRight, -10 + player1['pos'][1] * cellSize, -50 +  player1['pos'][0] * cellSize, cellSize, cellSize); }
+
+        if (bullet1['pos'][0] != 0 && bullet1['pos'][1] != 0){
+            if (bullet1['way'] === "left") { ctx.drawImage(bulL, -10 +  bullet1['pos'][1] * cellSize, -50 +  bullet1['pos'][0] * cellSize, cellSize, cellSize); }
+            else if (bullet1['way'] === "down") { ctx.drawImage(bulD, -10 +  bullet1['pos'][1] * cellSize, -50 +  bullet1['pos'][0] * cellSize, cellSize, cellSize); }
+            else if (bullet1['way'] === "up") { ctx.drawImage(bul, -10 +  bullet1['pos'][1] * cellSize, -50 +  bullet1['pos'][0] * cellSize, cellSize, cellSize); }
+            else if (bullet1['way'] === "right") { ctx.drawImage(bulR, -10 +  bullet1['pos'][1] * cellSize, -50 +  bullet1['pos'][0] * cellSize, cellSize, cellSize); }
+        }
     }
 
-    if (bx != 0 && by != 0 && tWay == way) {
-        if (way === "left") { ctx.drawImage(bulL, -10 + by * cellSize, -50 + bx * cellSize, cellSize, cellSize); }
-        else if (way === "down") { ctx.drawImage(bulD, -10 + by * cellSize, -50 + bx * cellSize, cellSize, cellSize); }
-        else if (way === "up") { ctx.drawImage(bul, -10 + by * cellSize, -50 + bx * cellSize, cellSize, cellSize); }
-        else if (way === "right") { ctx.drawImage(bulR, -10 + by * cellSize, -50 + bx * cellSize, cellSize, cellSize); }
+    if (!winner['player1']){
+        if (player2['way'] === "left") { ctx.drawImage(tankImaRedL, -10 + player2['pos'][1] * cellSize, -50 + player2['pos'][0] * cellSize, cellSize, cellSize); }
+        if (player2['way'] === "down") { ctx.drawImage(tankImaRedD, -10 + player2['pos'][1] * cellSize, -50 + player2['pos'][0] * cellSize, cellSize, cellSize); }
+        if (player2['way'] === "up") { ctx.drawImage(tankImaRedU, -10 + player2['pos'][1] * cellSize, -50 + player2['pos'][0] * cellSize, cellSize, cellSize); }
+        if (player2['way'] === "right") { ctx.drawImage(tankImaRedR, -10 + player2['pos'][1] * cellSize, -50 + player2['pos'][0] * cellSize, cellSize, cellSize); }
+
+        if (bullet2['pos'][0] != 0 && bullet2['pos'][1] != 0) {
+            if (bullet2['way'] === "left") { ctx.drawImage(bulRedL, -10 + bullet2['pos'][1] * cellSize, -50 + bullet2['pos'][0] * cellSize, cellSize, cellSize); }
+            if (bullet2['way'] === "down") { ctx.drawImage(bulRedD, -10 + bullet2['pos'][1] * cellSize, -50 + bullet2['pos'][0] * cellSize, cellSize, cellSize); }
+            if (bullet2['way'] === "up") { ctx.drawImage(bulRedU, -10 + bullet2['pos'][1] * cellSize, -50 + bullet2['pos'][0] * cellSize, cellSize, cellSize); }
+            if (bullet2['way'] === "right") { ctx.drawImage(bulRedR, -10 + bullet2['pos'][1] * cellSize, -50 + bullet2['pos'][0] * cellSize, cellSize, cellSize)};
+        }
     }
-    if (!finish['players1']){
-        if (ttWay === "left") { ctx.drawImage(tankImaRedL, -10 + tty * cellSize, -50 + ttx * cellSize, cellSize, cellSize); }
-        else if (ttWay === "down") { ctx.drawImage(tankImaRedD, -10 + tty * cellSize, -50 + ttx * cellSize, cellSize, cellSize); }
-        else if (ttWay === "up") { ctx.drawImage(tankImaRedU, -10 + tty * cellSize, -50 + ttx * cellSize, cellSize, cellSize); }
-        else if (ttWay === "right") {ctx.drawImage(tankImaRedR, -10 + tty * cellSize, -50 + ttx * cellSize, cellSize, cellSize);}
-    }
-    if (bx != 0 && by != 0 && ttWay == bWay) {
-        if (bWay === "left") { ctx.drawImage(bulRedL, -10 + bby * cellSize, -50 + bbx * cellSize, cellSize, cellSize); }
-        else if (bWay === "down") { ctx.drawImage(bulRedD, -10 + bby * cellSize, -50 + bbx * cellSize, cellSize, cellSize); }
-        else if (bWay === "up") { ctx.drawImage(bulRedU, -10 + bby * cellSize, -50 + bbx * cellSize, cellSize, cellSize); }
-        else if (bWay === "right") { ctx.drawImage(bulRedR, -10 + bby * cellSize, -50 + bbx * cellSize, cellSize, cellSize); }
-    }
-    if (finish['players2'] || finish['players1']){
-        ctx.font = "24px serif";
-        clearScreen(ctx);
-        ctx.fillText(finish["winText"], 600, 300);
+    if (winner['player2'] || winner['player1']){
+        ctx.font = "50px serif";
+        ctx.fillStyle = "white";
+        ctx.fillText(winner["winText"], 250, 300);
     }
 
 }
@@ -145,9 +147,8 @@ function init() {
 
 function newFrame(frame) {
     const ctx = document.getElementById("field").getContext("2d");
-    drawField(ctx, frame["field"], frame['x'], frame['y'], frame['x2'], frame['y2'],
-        frame["bullet"]['bx'], frame["bullet"]['by'], frame["bullet"]["way"], frame["bullet2"]['bx'],
-        frame["bullet2"]['by'], frame["bullet2"]["way"], frame['way1'], frame['way2'], frame['finish'])
+    drawField(ctx, frame["field"], frame['player1'], frame['player2'], frame["bullet1"], frame["bullet2"],
+    frame['winner'])
 }
 
 init()
